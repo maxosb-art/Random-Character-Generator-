@@ -1,0 +1,85 @@
+Drafter Tutor Conversation
+
+Conversation transcript
+
+User
+
+Can you help me debug my code?
+
+Assistant
+
+Yes. I can help you debug your Drafter program one issue at a time, while keeping your original design and beginner-friendly Python style.
+
+User
+
+Drafter could not match the information sent by the page to the parameters of your 'save_player_name' function. The route expects 'player_name', but the request provided 'playername'.
+
+Assistant
+
+The error means the form field name does not match the route parameter. Drafter matches names exactly, including underscores. The TextBox should use TextBox("player_name", ...), and save_player_name should receive player_name.
+
+User
+
+So how would I go about fixing these issues?
+
+Assistant
+
+Find the TextBox in the index route and change its first argument from "playername" to "player_name". Check that save_player_name has a parameter named player_name. Save the file, stop the Drafter server, restart it, and test again.
+
+User
+
+Ahh okay I'll try to fix it now.
+
+Assistant
+
+Sounds good. Take your time. If another error appears, send it over and we can work through it one issue at a time.
+
+User
+
+I'm still getting this error though.
+
+Assistant
+
+The request is still sending playername instead of player_name. Check the actual code being run. The uploaded version appeared to use player_name already, so there may be another textbox or an older copy of the app running.
+
+User
+
+request.argument_parsing_failed: The route function 'save_player_name' expects 'player_name', but the request value is 'playername'. Route call: save_player_name(playername='max').
+
+Assistant
+
+Please share the entire index function and the save_player_name function so we can compare the exact names.
+
+User
+
+Here's my index function: @route def index(state: State) -> Page: return Page(state, [Header("The Fantasy Character Generator"), "Welcome to your own fantasy world!", "Pick some options and we'll mix them with random details.", "What should we call you?", TextBox("playername", state.player_name, placeholder="Enter your name"), Button("Start Creating", "save_player_name")])
+
+Assistant
+
+We found it. The TextBox uses TextBox("playername", ...). Change it to TextBox("player_name", ...). Then the field name matches the route parameter. Save, restart the server, reload the page, and test.
+
+User
+
+Ohh okay thank you.
+
+Assistant
+
+You're welcome! Drafter matches names exactly, so a tiny underscore can make the difference.
+
+User
+
+Is there anything else with the function you would change, like the overall program?
+
+Assistant
+
+The program has a good foundation. Suggested checks included adding the missing @route decorator to new_character, checking form field names against route parameters, keeping character generation separate from route functions, preserving character history when starting another character, and optionally improving the results page and adding tests.
+
+Assistant
+
+The suggested new_character change was to put @route directly above def new_character(...). The response also recommended keeping the existing create_character helper and making small changes rather than rewriting the program.
+
+User
+
+Turn this convo into a file.
+
+Note: This is a cleaned-up transcript of the debugging discussion, not a verbatim export of every system or tool message.
